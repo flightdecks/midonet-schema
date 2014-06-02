@@ -1,0 +1,43 @@
+{
+  "name": "midonet-schema",
+  "version": "0.0.1",
+  "description": "JSON schema for MidoNet API",
+  "homepage": "https://github.com/midokura/midonet-schema/",
+  "author": "MidoNet Development Team <dev@midokura.com>",
+  "keywords": [
+    "midonet",
+    "MidoNet",
+    "schema",
+    "cson"
+  ],
+  "maintainers": [
+    {
+      "name": "MidoNet Development Team",
+      "email": "dev@midokura.com",
+      "web": "http://www.midokura.com"
+    }
+  ],
+  "contributors": [],
+  "licenses": [
+    {
+      "type": "Midokura Proprietary",
+      "url": "http://www.midokura.com"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/midokura/midonet-schema/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:midokura/midonet-schema.git"
+  },
+  "engines": {
+    "node": ">= 0.10.13"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-cli": "~0.1.13",
+    "grunt-cson": "~0.8.0"
+  }
+}
