@@ -41,6 +41,11 @@
     "grunt-cson": "~0.8.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-shell": "~0.7.0",
+    "gulp": "~3.8.0",
     "coffee-script": "~1.7.1",
+    "gulp-coffee": "~2.0.1",
+    "gulp-shell": "~0.2.5",
+    "gulp-cson": "0.0.1",
+    "gulp-exec": "~2.0.1"
   }
 }
