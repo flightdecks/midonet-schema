@@ -1,0 +1,9 @@
+{
+  "description": "MidoNet API JSON Schema Data",
+  "id": "midonet",
+  "links": [{
+    "href": "https://example.org/midonet-api",
+    "rel": "self"
+  }],
+  "title": "MidoNet API"
+}
