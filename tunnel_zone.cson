@@ -1,0 +1,67 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/tunnel_zone"
+title: "Tunnel Zone"
+description: """
+  Tunnel zone represents a group in which hosts can be included to form an
+  isolated zone for tunneling. They must have unique, case insensitive names per
+  type.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.TunnelZone-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/tunnel_zone#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/tunnel_zones/fe715922-4f87-437d-8638-d45910d2b1ac"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "fe715922-4f87-437d-8638-d45910d2b1ac"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "The name of the resource."
+    example: "example_tunnel_zone"
+    $ref: "/schemata/commons#/definitions/name"
+  type:
+    description: 'Tunnel type. Currently this value can only be "GRE".'
+    example: "GRE"
+    type: ["string"]
+    enum: ["GRE"]
+links: [{
+  title: "List"
+  description: "Get the list of tunnel zones."
+  href: "/tunnel_zones"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific tunnel zone."
+  href: "/tunnel_zones/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new tunnel zone."
+  href: "/tunnel_zones"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific tunnel zone."
+  href: "/tunnel_zones/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific tunnel zone."
+  href: "/tunnel_zones/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

@@ -1,0 +1,38 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/host_version"
+title: "Host Version"
+description: """
+  The Host Version specifies version information for each host running
+  in the Midonet deployment.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.HostVersion-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/host_version#/properties/version"
+properties:
+  version:
+    description: "The version of Midolman agent running on the host."
+    example: "1.6"
+    $ref: "/schemata/commons#/definitions/version"
+  hostId:
+    description: """
+      The the UUID of the host that the Midolman agent is running on.
+      """
+    example: "07743a54-fd7d-430e-b7b1-320843b005e3"
+    $ref: "/schemata/commons#/definitions/id"
+  host:
+    description: "The URI of the host that the Midolman agent is running on."
+    example: "http://example.org:8080/midonet-api/hosts/07743a54-fd7d-430e-b7b1-320843b005e3"
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["version", "hostId", "host"]
+links: [{
+  title: "Info"
+  description: "Get the specific VTEP."
+  href: "/versions"
+  method: "GET"
+  rel: "self"
+}]

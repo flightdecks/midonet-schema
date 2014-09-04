@@ -1,0 +1,99 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/health_monitor"
+title: "HealthMonitor"
+description: """
+  A HealthMonitor is an entity that represents a virtual health monitor device
+  for use with load balancers in MidoNet.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.HealthMonitor-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/health_monitor#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/health_monitors/7a35950e-09cb-4ed1-ba20-cb6864e7e035"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+      """
+    example: "7a35950e-09cb-4ed1-ba20-cb6864e7e035"
+    $ref: "/schemata/commons#/definitions/id"
+  delay:
+    description: """
+      Delay for the health check interval in seconds. Defaults to 0.
+      """
+    $ref: "/schemata/commons#/definitions/seconds"
+  timeout:
+    description: """
+      Timeout value for the health check in seconds. Defaults to 0.
+      """
+    $ref: "/schemata/commons#/definitions/seconds"
+  maxRetries:
+    description: "Number of times to retry for health check. Defaults to 0."
+    $ref: "/schemata/commons#/definitions/seconds"
+  type:
+    description: """
+      A type of the health monitor checking protocol. Only \"TCP\" is supported
+      in the current version. Read-only property.
+      """
+    readOnly: true
+    example: "TCP"
+    type: ["string"]
+    enum: ["TCP"]
+  adminStateUp:
+    $ref: "/schemata/commons#/definitions/adminStateUp"
+  status:
+    description: """
+      The status of the object. There are following states:
+
+        * ACTIVE
+        * INACTIVE
+      """
+    example: "ACTIVE"
+    type: ["string"]
+    enum: ["ACTIVE", "INACTIVE"]
+  pools:
+    description: "A GET against this URI retrieves the pools."
+    example: "http://example.org:8080/midonet-api/load_balancers/59e72865-57d2-4eda-99e7-98bcf878bc52/pools"
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["type"]
+links: [{
+  title: "List"
+  description: "Get the list of health monitors"
+  href: "/health_monitors"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific health monitor."
+  href: "/health_monitors/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new health monitor."
+  href: "/health_monitors"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific health monitor."
+  href: "/health_monitors/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific health monitor."
+  href: "/health_monitors/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

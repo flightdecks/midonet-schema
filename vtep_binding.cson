@@ -1,0 +1,84 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/vtep_binding"
+title: "VTEP Binding"
+description: """
+  Bindings between a VTEP port/vlanId and a Neutron network. Creating a binding
+  creates an IP tunnel through which L2 traffic can pass between the VTEP and
+  Neutron network.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.VTEPBinding-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/router#/properties/uri"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/vteps/10.0.1.1/bindings/example_port/1234"
+    $ref: "/schemata/commons#/definitions/uri"
+  portName:
+    description: "The name of the VTEP port to be bound to the Neutron network."
+    example: "example_port"
+    $ref: "/schemata/commons#/definitions/name"
+  vlanId:
+    description: """
+      The VLAN ID with which traffic from the VTEP to Midonet will be tagged.
+      Must be between 0 and 4095 inclusive. If 0, then traffic will not be
+      tagged with a VLAN ID.
+      """
+    $ref: "/schemata/commons#/definitions/vlanId"
+  networkId:
+    description: """
+      The ID of the Neutron network to which the VLAN's port is to be bound. A
+      VXLAN port will be created on the bridge if it does not already have one,
+      and the binding will be added to the bridge's VXLAN port.
+
+      It is an error to attempt bind a Neutron network to more than one VTEP,
+      but a network may have multiple bindings to a single VTEP, and a VTEP may
+       have bindings to multiple networks.
+      """
+    example: "9a59b96e-dcee-4695-b7f4-fb5e3d349f87"
+    $ref: "/schemata/commons#/definitions/id"
+required: ["portName", "vlanId", "networkId"]
+links: [{
+  title: "List"
+  description: "Get the list of VTEP bindings on a VTEP."
+  href: "/vteps/{managementIp}/bindings"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific VTEP binding on a VTEP."
+  href: "/vteps/{managementIp}/bindings/{portName}/{vlanId}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "List"
+  description: "Get the list of VTEP bindings on a VXLAN port."
+  href: "/ports/{vxLanPortId}/bindings"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific VTEP binding on a VTEP."
+  href: "/ports/{vxLanPortId}/bindings/{portName}/{vlanId}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new VTEP binding on a VTEP."
+  href: "/vteps/{managementIp}/bindings"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Delete"
+  description: "Delete the specific VTEP binding on a VTEP."
+  href: "/vteps/{managementIp}/bindings/{portNam}/{vlanId}"
+  method: "DELETE"
+  rel: "delete"
+}]

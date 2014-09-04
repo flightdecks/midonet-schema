@@ -1,0 +1,81 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/port_group"
+title: "Port Group"
+description: """
+  Port group is a group of ports. Port groups are owned by tenants. A port could
+  belong to multiple port groups as long as they belong to the same tenant. A
+  port group can be specified in the chain rule to filter the traffic coming
+  from all the ports belonging to that the specified group.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.PoolGroup-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/port_group#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/port_groups/ddd90694-4cfd-44d3-9397-fe19fd4e5ce8"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "ddd90694-4cfd-44d3-9397-fe19fd4e5ce8"
+    $ref: "/schemata/commons#/definitions/id"
+  tenantId:
+    description: "ID of the tenant that this chain belongs to."
+    example: "7ae3e43d-1964-46ea-bf09-cd8fbdfb5cc9"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the port group. Unique per tenant."
+    example: "example_port_group"
+    type: ["string"]
+  ports:
+    description: "URI for port membership operations."
+    example: "http://example.org:8080/midonet-api/ports/afefefbc-66d1-46a0-8d49-a56c3554e9f8"
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["name"]
+links: [{
+  title: "List"
+  description: "Get the list of port groups."
+  href: "/port_groups"
+  method: "GET"
+  rel: "instances"
+  properties:
+    tenant_id:
+      descritpion: "ID of the tenant to filter the search with."
+}, {
+  title: "List (Port)"
+  description: "Get the list of port groups on a port"
+  href: "/ports/{portId}/port_groups"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific port group."
+  href: "/port_groups/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new port group."
+  href: "/port_groups"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific port group."
+  href: "/port_groups/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific port group."
+  href: "/port_groups/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

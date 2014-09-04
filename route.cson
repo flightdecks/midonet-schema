@@ -1,0 +1,103 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/route"
+title: "Route"
+description: """
+  Route is an entity that represents a route on a virtual router in MidoNet.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Route-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/route#/properties/uri"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/routers/9a59b96e-dcee-4695-b7f4-fb5e3d349f87/routes/0124f60a-ca6c-45ba-9290-982d5550bd76"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "0124f60a-ca6c-45ba-9290-982d5550bd76"
+    $ref: "/schemata/commons#/definitions/id"
+  routerId:
+    description: "ID of the router that this route belongs to."
+    example: "9a59b96e-dcee-4695-b7f4-fb5e3d349f87"
+    $ref: "/schemata/commons#/definitions/id"
+  router:
+    description: "A GET against this URI gets the router resource."
+    example: "http://example.org:8080/midonet-api/routers/9a59b96e-dcee-4695-b7f4-fb5e3d349f87"
+    $ref: "/schemata/commons#/definitions/uri"
+  type:
+    description: """
+      Type of route:
+
+          * Normal: Regular traffic forwarding route
+          * Reject: Drop packets and send ICMP packets back
+          * BlackHole: Drop packets and do not send ICMP packets back
+      """
+    example: "Normal"
+    type: ["string"]
+    enum: ["Normal", "Reject", "BlackHole"]
+  srcNetworkAddr:
+    description: "Source IP address."
+    $ref: "/schemata/commons#/definitions/ipv4"
+  srcNetworkLength:
+    description: "Source network IP address length."
+    $ref: "/schemata/commons#/definitions/subnetLength"
+  dstNetowrkAddr:
+    description: "Destination IP address."
+    $ref: "/schemata/commons#/definitions/ipv4"
+  dstNetworkLength:
+    description: "Destination network IP address length."
+    $ref: "/schemata/commons#/definitions/subnetLength"
+  weight:
+    description: """
+      The priority weight of the route. Lower weights take precedence over
+      higher weights.
+      """
+    type: ["number"]
+  nextHopPort:
+    description: "The ID of the next hop port."
+    $ref: "/schemata/commons#/definitions/id"
+  nextHopGateeway:
+    description: "IP address of the gateway router to forward the traffic to."
+    type: ["string"]
+required: [
+  "type", "srcNetworkAddr", "srcNetworkLength", "dstNetworkAddr",
+  "dstNetworkLength", "weight", "nextHopPort", "nextHopGateway"
+  ]
+links: [{
+  title: "List"
+  description: "Get the list of routes on a router."
+  href: "/routers/{routerId}/routes"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific route."
+  href: "/route/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new route on a router."
+  href: "/routers/{routerId}/routes"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific route."
+  href: "/routers/{routerId}/routes/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific route."
+  href: "/routers/{routerId}/routes/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

@@ -1,0 +1,54 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schema/system_state"
+title: "System State"
+description: '''
+  System State specifies parameters for the various states the deployment might
+  be in. You may modify the system state to make limited changes to the
+  behavior of midonet. For example, changing the "state" field to "UPGRADE" will
+  cause the spawning of new midolman agents to abort.
+  '''
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.SystemState-v1+json"
+properties:
+  state:
+    description: '''
+      Setting the state field to "UPGRADE" will put the midolman into
+      "upgrade mode", which will cause all new midolman agents starting up in
+      the deployment to abort the start up process. This is used during
+      deployment wide upgrades to prevent unexpected startups of any midolman
+      agent that might have the wrong version. This state can be reversed by
+      setting the upgrade field to "ACTIVE". The deployment is not in upgrade
+      state by default.
+      '''
+    example: "ACTIVE"
+    type: ["string"]
+    enum: ["ACTIVE", "UPGRADE"]
+  availability:
+    description: '''
+      Setting the availability to "READONLY" will cause most API requests to be
+      rejected. The exceptions are only administrative APIs that don\'t affect
+      the topology: system_state and write_version. This is meant to let the
+      operator stop REST API requests while performing maintenance or upgrades.
+      Setting the availability to "READWRITE" (the default value) allows both
+      GETs and PUT/POST API requests.
+      '''
+    example: "READONLY"
+    type: ["string"]
+    enum: ["READONLY", "READWRITE"]
+required: ["state", "availability"]
+links: [{
+  title: "Info"
+  description: "Get the system state."
+  href: "/system_state"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Update"
+  description: "Update the system state."
+  href: "/system_state"
+  method: "PUT"
+  rel: "update"
+}]

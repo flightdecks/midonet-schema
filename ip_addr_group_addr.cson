@@ -1,0 +1,62 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/ip_addr_group_addr"
+title: "IP Address Group Address"
+description: """
+  IpAddrGroupAddr represents membership of IP address in IP address groups.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.IpAddrGroupAddr-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/ip_addr_group_addr#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/ip_addr_groups/a7d05156-5212-409c-9276-b0a1b4ac5eae/ip_addrs/229b39e5-ff1c-4f0f-9d91-9adf6122d423"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    exmple: "229b39e5-ff1c-4f0f-9d91-9adf6122d423"
+    $ref: "/schemata/commons#/definitions/id"
+  ipAddrGroupId:
+    description: "ID of the IP address group that this IP address is a member of."
+    example: "a7d05156-5212-409c-9276-b0a1b4ac5eae"
+    $ref: "/schemata/commons#/definitions/id"
+  ipAddrGroup:
+    description: "URI to fetch the IP address group."
+    example: "http://example.org:8080/midonet-api/ip_addr_groups/a7d05156-5212-409c-9276-b0a1b4ac5eae"
+    $ref: "/schemata/commons#/definitions/uri"
+  addr:
+    description: "IP Address member in an IP address group."
+    $ref: "/schemata/commons#/definitions/ipv4"
+required: ["addr"]
+links: [{
+  title: "List"
+  description: "Get the list of IP address group addresses."
+  href: "/ip_addr_groups/{ipAddrGroupId}/version/4/ip_addrs"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific IP address group address."
+  href: "/ip_addr_groups/{ipAddrGroupId}/ip_addrs/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new IP address group address."
+  href: "/ip_addr_groups/{ipAddrGroupId}/ip_addrs"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Delete"
+  description: "Delete the specific IP address group."
+  href: "/ip_addr_groups/{ipAddrGroupId}/ip_addrs/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

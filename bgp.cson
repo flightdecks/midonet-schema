@@ -1,0 +1,75 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/bgp"
+title: "BGP"
+description: """
+  BGP is an entity that represents a single set of BGP configurations.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.BGP-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/bgp#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/bgps/f5963cd4-6abb-4e52-94f6-2dd2a6615365"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "f5963cd4-6abb-4e52-94f6-2dd2a6615365"
+    $ref: "/schemata/commons#/definitions/id"
+  portId:
+    description: "ID of the port to set the BGP confgurations on."
+    example: "afefefbc-66d1-46a0-8d49-a56c3554e9f8"
+    $ref: "/schemata/commons#/definitions/uri"
+  port:
+    description: "A GET against this URI gets the port resource."
+    example: "http://example.org:8080/midonet-api/ports/afefefbc-66d1-46a0-8d49-a56c3554e9f8"
+    $ref: "/schemata/commons#/definitions/uri"
+  localAS:
+    description: "Local AS number."
+    $ref: "/schemata/commons#/definitions/asNumber"
+  peerAS:
+    description: "Peer BGP speaker's AS number."
+    $ref: "/schemata/commons#/definitions/asNumber"
+  peerAddr:
+    description: "The address of the peer to connect to."
+    $ref: "/schemata/commons#/definitions/ipv4"
+  adRoutes:
+    description: """
+      A GET against this URi retrieves the advertised routes of this BGP
+      speaker.
+      """
+    example: "http://example.org:8080/midonet-api/bgps/f5963cd4-6abb-4e52-94f6-2dd2a6615365/ad_routes"
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["localAS", "peerAS", "peerAddr"]
+links: [{
+  title: "List"
+  description: "Get the list of BGPs."
+  href: "/ports/{portId}/bgps"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific BGP."
+  href: "/bgps/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new BGP."
+  href: "/ports/{portId}/bgps"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Delete"
+  description: "Delete the specific BGP."
+  href: "/bgps/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

@@ -1,0 +1,157 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/commons"
+title: "MidoNet Common Data Schema Definitions"
+description: "Common data schemas shared among other schemas."
+type: ["object"]
+definitions:
+  adminStateUp:
+    description: "The administrative state of the resource."
+    readOnly: true
+    example: true
+    type: ["boolean"]
+  asNumber:
+    description: "An AS number."
+    example: 12345
+    minimum: 0
+    maximum: 65535
+    type: ["integer"]
+  cidr:
+    description: "A CIDR of the subnet."
+    example: "10.0.0.0/24"
+    pattern: "^((25[0-5]|2[0-4][0-9]|1?[0-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1?[0-9]?[0-9])/(3[0-2]|((1|2)?[0-9]))$"
+    # format: "cidr"
+    type: ["string"]
+  ethertype:
+    description: "An Ethernet type."
+    example: 0
+    minimum: 0
+    maximum: 65535
+    type: ["integer"]
+  ethermask:
+    description: "A mask for MAC addresses."
+    example: "1234.5678.9abc"
+    pattern: "^(?:(?:[a-f0-9]{4}\.){2}[a-f0-9]|(?:[A-F0-9]{4}\.){2}[A-F0-9])$"
+    type: ["string"]
+  id:
+    description: "A UUID."
+    example: "1fcf4a17-dd31-4efc-b53b-217b086483fd"
+    format: "uuid"
+    # pattern: "^[a-f0-9]{8}('-'[a-f0-9]{4}){3}'-'[a-f0-9]{12}$"
+    type: ["string"]
+  identity:
+    $ref: "/schemata/commons#/definitions/id"
+  ipv4:
+    description: "An IPv4 address."
+    example: "1.2.3.4"
+    format: "ipv4"
+    # pattern: "^((25[0-5]|2[0-4][0-9]|1?[0-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1?[0-9]?[0-9])$"
+    type: ["string"]
+  ipv6:
+    description: "An IPv6 address."
+    example: "2001:0db8:0000:130F::087C:140B"
+    # format: "ipv6"
+    type: ["string"]
+  subnetLength:
+    description: "A subnet length."
+    example: 24
+    minimum: 0
+    maximum: 32
+    type: ["integer"]
+  mac:
+    description: "A MAC address."
+    example: "aa:bb:cc:dd:ee:ff"
+    # format: "mac"
+    pattern: "^((?:[0-9a-f]{2}\:){5}[0-9a-f]{2}|(?:[0-9A-F]{2}\:){5}[0-9A-F]{2})$"
+    type: ["string"]
+  name:
+    description: "A name of the resource."
+    example: "example_resource"
+    type: ["string"]
+  portNumber:
+    description: "A port number."
+    example: 80
+    minimum: 0
+    maximum: 65535
+    type: ["integer"]
+  seconds:
+    description: "Time in seconds"
+    example: 10
+    minimum: 0
+    defualt: 0
+    type: ["integer"]
+  uri:
+    description: "A URI for the resource."
+    example: "http://example.org/"
+    # format: "uri"
+    redOnly: true
+    type: ["string"]
+  status:
+    description: """
+      The status of the object. There are following states:
+
+      * UP
+      * DOWN
+      """
+    readOnly: true
+    example: "UP"
+    type: ["string"]
+    enum: ["UP", "DOWN"]
+  range:
+    description: "A range which has the start value and the end value."
+    example: {start: 80, end: 400}
+    type: ["object"]
+  version:
+    description: "Version number."
+    example: "1.2"
+    pattern: "^\d+\.\d+$"
+    type: ["string"]
+  vlanId:
+    description: "A VLAN ID."
+    example: 1234
+    minimum: 0
+    maximum: 4095
+    type: ["integer"]
+  weight:
+    description: "A weight."
+    example: 42
+    minimum: 1
+    default: 1
+    type: ["integer"]
+properties:
+  adminStateUp:
+    $ref: "/schemata/commons#/definitions/adminStateUp"
+  asNumber:
+    $ref: "/schemata/commons#/definitions/asNumber"
+  cidr:
+    $ref: "/schemata/commons#/definitions/cidr"
+  ethertype:
+    $ref: "/schemata/commons#/definitions/ethertype"
+  ethermask:
+    $ref: "/schemata/commons#/definitions/ethermask"
+  id:
+    $ref: "/schemata/commons#/definitions/id"
+  ipv4:
+    $ref: "/schemata/commons#/definitions/ipv4"
+  ipv6:
+    $ref: "/schemata/commons#/definitions/ipv6"
+  subnetLength:
+    $ref: "/schemata/commons#/definitions/subnetLength"
+  mac:
+    $ref: "/schemata/commons#/definitions/mac"
+  name:
+    $ref: "/schemata/commons#/definitions/name"
+  portNumber:
+    $ref: "/schemata/commons#/definitions/portNumber"
+  seconds:
+    $ref: "/schemata/commons#/definitions/seconds"
+  uri:
+    $ref: "/schemata/commons#/definitions/uri"
+  status:
+    $ref: "/schemata/commons#/definitions/status"
+  range:
+    $ref: "/schemata/commons#/definitions/range"
+  weight:
+    $ref: "/schemata/commons#/definitions/weight"
+links: []

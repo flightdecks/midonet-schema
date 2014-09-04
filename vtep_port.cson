@@ -1,0 +1,26 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/vtep_port"
+title: "VTEP Port"
+description: """
+  Gets the name and description of all ports on the specified VTEP.a
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.VTEPPort-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/router#/properties/uri"
+properties:
+  name:
+    description: "The port's name."
+    example: "example_port"
+    $ref: "/schemata/commons#/definitions/name"
+links: [{
+  title: "List"
+  description: "Get the list of VTEP ports."
+  href: "/vteps/10.0.1.1/ports"
+  method: "GET"
+  rel: "instances"
+}]

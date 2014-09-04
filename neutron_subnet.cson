@@ -1,0 +1,119 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/neutron_subnet"
+title: "Neutron Subnet"
+description: ""
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.neutron.Subnet-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/neutron_subnet#/properties/id"
+properties:
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+      """
+    example: "1405d6c6-a199-44d6-b9af-756dc6f5e3f7"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the resource."
+    example: "neutron_subnet"
+    type: ["string"]
+  tenant_id:
+    description: "efd28582-bb5d-487c-9286-9a19af4ab0a4"
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  admin_state_up:
+    description: """
+      The administrative state of the resource. Default is true (up).
+      """
+    example: true
+    type: ["boolean"]
+  ip_version:
+    description: """
+      Version of IP (4 or 6) Currently only 4 is supported.
+      """
+    example: 4
+    type: ["integer"]
+  share:
+    description: """
+      Indicates whether this resource is shared among tenants.
+      """
+    example: true
+    type: ["boolean"]
+  cidr:
+    description: """
+      CIDR of the subnet Format should be x.x.x.x/y, such as 10.0.0.0/24.
+      """
+    example: "10.0.0.0/24"
+    $ref: "/schemata/commons#/definitions/cidr"
+  gateway_ip:
+    description: "Gateway IP address of this subnet."
+    example: "10.0.0.1"
+    $ref: "/schemata/commons#/definitions/ipv4"
+  enable_dhcp:
+    description: """
+      Enable/disable DHCP on this subnet. Default is true (enabled).
+      """
+    example: true
+    type: ["boolean"]
+  allocation_pools:
+    description: """
+      List of IP range pairs to specify the range of IPs used to allocate to
+      ports.
+      """
+    example: [{"start": "192.168.100.2", "end": "192.168.100.254"}]
+    type: ["array"]
+    items:
+      type: ["object"]
+  host_routes:
+    description: """
+      List of routes to specify option 121 routes to include in DHCP.
+      """
+    example: [{"destination": "10.0.0.2/24",  "nexthop": "10.0.1.1"}]
+    type: ["array"]
+    items:
+      type: ["object"]
+  dns_nameserver:
+    destination: """
+      List of String indicating the DNS nameservers to include in DHCP.
+      """
+    example: ["8.8.8.8", "8.8.4.4"]
+    type: ["array"]
+    items:
+      $ref: "/schemata/commons#/definitions/ipv4"
+require: ["tenant_id"]
+links: [{
+  title: "List"
+  description: "Get the list of the neutron subnets."
+  href: "/neutron/subnets"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific neutron subnet."
+  href: "/neutron/subnets/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new neutron subnet."
+  href: "/neutron/subnets"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the sepcific neutron subnet."
+  href: "/neutron/subnets/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific neutron subnet."
+  href: "/neutron/subnets/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

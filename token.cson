@@ -1,0 +1,34 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/token"
+title: "Token"
+description: """
+  A token represents the info required for the 'token authentication' method. It
+  can NOT be retrieved through a GET request, but instead must be retrieved in
+  the body or the header of a login request.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Token-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/token#/properties/key"
+properties:
+  key:
+    description: "The authentication token."
+    example: "baz"
+    readOnly: true
+    type: ["string"]
+  expires:
+    description: "The expiration date for the authentication token."
+    example: "Fri, 02 July 2014 1:00:00 GMT"
+    type: ["string"]
+    format: "date-time"
+links: [{
+  title: "Login"
+  description: "Post a login information."
+  href: "/login"
+  method: "POST"
+  rel: "create"
+}]

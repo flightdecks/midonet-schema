@@ -1,0 +1,90 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/neutron_router"
+title: "Neutron Router"
+description: ""
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.neutron.Router-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/neutron_router#/properties/id"
+properties:
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+      """
+    example: "1405d6c6-a199-44d6-b9af-756dc6f5e3f7"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the resource."
+    example: "neutron_port"
+    type: ["string"]
+  tenant_id:
+    description: "ID of the tenant that owns the resource."
+    example: "efd28582-bb5d-487c-9286-9a19af4ab0a4"
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  admin_state_up:
+    description: """
+      The administrative state of the resource. Default is true (up).
+      """
+    example: true
+    type: ["boolean"]
+  gw_port_id:
+    description: "ID of the gateway port on the external network."
+    example: "963e19da-3e66-4594-8576-dfcb3885b187"
+    $ref: "/schemata/commons#/definitions/id"
+  external_gateway:
+    description: """
+      Information about the gateway, which consists of the following fields:
+        * network_id: ID of the external network. This field is required.
+        * enable_snat: Enabling SNAT allows VMs to reach the Internet. This
+                       field is optional and is defaulted to True.
+      """
+    exmple: {
+      "network_id": "12b31de0-875c-4e8d-ade0-9068f2dd16e6",
+      "enable_snat": true
+    }
+    type: ["object"]
+  status:
+    description: """
+      Status of this resource. This field is currently unused.
+      """
+    example: ""
+    readOnly: true
+    type: ["string"]
+require: ["tenant_id"]
+links: [{
+  title: "List"
+  description: "Get the list of the neutron router."
+  href: "/neutron/routers"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific neutron router."
+  href: "/neutron/routers/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new neutron router."
+  href: "/neutron/routers"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the sepcific neutron router."
+  href: "/neutron/routers/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific neutron router."
+  href: "/neutron/routers/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

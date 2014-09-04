@@ -1,0 +1,63 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/port_group_port"
+title: "Port Group Port"
+description: "PortGroupPort represents membership of ports in port groups."
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.PortGroupPort-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/port_group_port#/properties/uri"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/port_groups/ddd90694-4cfd-44d3-9397-fe19fd4e5ce8"
+    $ref: "/schemata/commons#/definitions/uri"
+  portGroupId:
+    description: "ID of the port group that a port is a member of."
+    example: "ddd90694-4cfd-44d3-9397-fe19fd4e5ce8"
+    $ref: "/schemata/commons#/definitions/id"
+  portId:
+    description: "ID of the port in a port group membership."
+    example: "afefefbc-66d1-46a0-8d49-a56c3554e9f8"
+    $ref: "/schemata/commons#/definitions/id"
+  port:
+    description: "URI to fetch the port."
+    example: "http://example.org:8080/midonet-api/ports/afefefbc-66d1-46a0-8d49-a56c3554e9f8"
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["portId"]
+links: [{
+  title: "List"
+  description: "Get the list of port group ports."
+  href: "/port_groups/{portGroupId}/ports"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific port group port."
+  href: "/port_groups/{portGroupId}/ports/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new port group port."
+  href: "/port_groups/{portGroupId}/ports"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific port group port."
+  href: "/port_groups/{portGroupId}/ports/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific port group port."
+  href: "/port_groups/{portGroupId}/ports/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

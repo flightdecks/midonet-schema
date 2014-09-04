@@ -1,0 +1,111 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/neutron_port"
+title: "Neutron Port"
+description: ""
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.neutron.Port-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/neutron_port#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "/routers/3db09bea-992d-476c-a06c-f086058da49b"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+      """
+    example: "1405d6c6-a199-44d6-b9af-756dc6f5e3f7"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the resource."
+    example: "neutron_port"
+    $ref: "/schemata/commons#/definitions/id"
+  tenant_id:
+    description: "efd28582-bb5d-487c-9286-9a19af4ab0a4"
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  admin_state_up:
+    description: """
+      The administrative state of the resource. Default is true (up).
+      """
+    example: true
+    type: ["boolean"]
+  network_id:
+    description: "ID of the network this port belongs to."
+    $ref: "/schemata/commons#/definitions/id"
+  mac_address:
+    description: "MAC address of the instance attached to this port."
+    $ref: "/schemata/commons#/definitions/mac"
+  fixed_ips:
+    description: """
+      List of IP addresses assigned to this port and the subnet that the address
+      was allocated from.
+      """
+    example: [{
+      "ip_address": "10.0.0.2",
+      "subnet_id": "2b061d5e-4c0d-448c-be6c-4495d73ba5ad"
+    }]
+    type: ["array"]
+    items:
+      type: ["object"]
+  device_id:
+    description: "ID of the device that owns the port."
+    example: "77eb1bf3-e110-4f86-b0b6-bc5ff0fa5e84"
+    $ref: "/schemata/commons#/definitions/id"
+  device_owner:
+    description: """
+      Owner of the device that owns the port. If none of the possible values is
+      set, then the port is considered to be VIF port where a VM attaches to.
+      """
+    example: "network:dhcp"
+    type: ["string"]
+    enum: [
+      "network:dhcp"
+      "network:floatingip"
+      "network:router_gateway"
+      "network:router_interface"
+    ]
+  status:
+    description: "Status of this resource. This field is currently unused."
+    example: ""
+    type: ["string"]
+require: ["tenant_id", "network_id"]
+links: [{
+  title: "List"
+  description: "Get the list of the neutron ports."
+  href: "/neutron/ports"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific neutron port."
+  href: "/neutron/ports/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new neutron port."
+  href: "/neutron/ports"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the sepcific neutron port."
+  href: "/neutron/ports/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific neutron port."
+  href: "/neutron/ports/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

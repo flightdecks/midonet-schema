@@ -1,0 +1,214 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/application"
+title: "Application"
+description: """
+  This is the root object in MidoNet REST API. From this object, clients can
+  traverse the URIs to discover all the available services. Neutron was added
+  in v5.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Application-v5+json"
+properties:
+  tenants:
+    description: "A GET against this URI gets a list of tenants."
+    example: "http://example.org/midonet-api/tenants"
+    $ref: "/schemata/commons#/definitions/uri"
+  version:
+    description: "The version of the API server."
+    example: "v1.5"
+    type: ["string"]
+  bridges:
+    description: "A GET against this URI gets a list of bridges."
+    example: "http://example.org/midonet-api/bridges"
+    $ref: "/schemata/commons#/definitions/uri"
+  chains:
+    description: "A GET against this URI gets a list of chains."
+    example: "http://example.org/midonet-api/chains"
+    $ref: "/schemata/commons#/definitions/uri"
+  healthMonitors:
+    description: "A GET against this URI gets a list of health monitors."
+    example: "http://example.org/midonet-api/health_monitors"
+    $ref: "/schemata/commons#/definitions/uri"
+  hosts:
+    description: "A GET against this URI gets a list of hosts."
+    example: "http://example.org/midonet-api/hosts"
+    $ref: "/schemata/commons#/definitions/uri"
+  loadBalancers:
+    description: "A GET against this URI gets a list of load balancers."
+    example: "http://example.org/midonet-api/load_balancers"
+    $ref: "/schemata/commons#/definitions/uri"
+  portGroups:
+    description: "A GET against this URI gets a list of port groups."
+    example: "http://example.org/midonet-api/port_groups"
+    $ref: "/schemata/commons#/definitions/uri"
+  poolMembers:
+    description: "A GET against this URI gets a list of pool members."
+    example: "http://example.org/midonet-api/pool_members"
+    $ref: "/schemata/commons#/definitions/uri"
+  pools:
+    description: "A GET against this URI gets a list of pools."
+    example: "http://example.org/midonet-api/pools"
+    $ref: "/schemata/commons#/definitions/uri"
+  ports:
+    description: "A GET against this URI gets a list of ports."
+    example: "http://example.org/midonet-api/ports"
+    $ref: "/schemata/commons#/definitions/uri"
+  ipAddrGroups:
+    description: "A GET against this URI gets a list of IP address groups."
+    example: "http://example.org/midonet-api/ip_addr_groups"
+    $ref: "/schemata/commons#/definitions/uri"
+  routers:
+    description: "A GET against this URI gets a list of routers."
+    example: "http://example.org/midonet-api/routers"
+    $ref: "/schemata/commons#/definitions/uri"
+  tunnelZone:
+    description: "A GET against this URI gets a list of tunnel zones."
+    example: "http://example.org/midonet-api/tunnel_zones"
+    $ref: "/schemata/commons#/definitions/uri"
+  vips:
+    description: "A GET against this URI gets a list of vips."
+    example: "http://example.org/midonet-api/vips"
+    $ref: "/schemata/commons#/definitions/uri"
+  neutron:
+    description: "A GET against this URI gets a available Neutron resources."
+    example: "http://example.org/midonet-api/neutron"
+    $ref: "/schemata/commons#/definitions/uri"
+  adRouteTemplate:
+    description: """
+      Template of the URI that represents the location of BGP with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/ad_routes/{id}"
+    readOnly: true
+    type: ["string"]
+  bgpTemplate:
+    description: """
+      Template of the URI that represents the location of bridge with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/bgps/{id}"
+    readOnly: true
+    type: ["string"]
+  chainTemplate:
+    description: """
+      Template of the URI that represents the location of chain with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/chains/{id}"
+    readOnly: true
+    type: ["string"]
+  healthMonitorTemplate:
+    description: """
+      Template of the URI that represents the location of the health
+      monitor with the provided ID.
+      """
+    example: "http://example.org/midonet-api/health_monitors/{id}"
+    readOnly: true
+    type: ["string"]
+  hostTemplate:
+    description: """
+      Template of the URI that represents the location of host with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/hosts/{id}"
+    readOnly: true
+    type: ["string"]
+  loadBalancerTmplate:
+    description: """
+      Template of the URI that represents the location of the health
+      monitor with the provided ID.
+      """
+    example: "http://example.org/midonet-api/load_balancers/{id}"
+    readOnly: true
+    type: ["string"]
+  portTemplate:
+    description: """
+      Template of the URI that represents the location of port with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/ports/{id}"
+    readOnly: true
+    type: ["string"]
+  portGroupTemplate:
+    description: """
+      Template of the URI that represents the location of port group with
+      the provided ID.
+      """
+    example: "http://example.org/midonet-api/port_groups/{id}"
+    type: ["string"]
+  poolMemberTemplate:
+    description: """
+      Template of the URI that represents the location of the pool member
+      with the provided ID.
+      """
+    example: "http://example.org/midonet-api/pool_members/{id}"
+    readOnly: true
+    type: ["string"]
+  poolTemplate:
+    description: """
+      Template of the URI that represents the location of the pool with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/pools/{id}"
+    readOnly: true
+    type: ["string"]
+  ipAddrGroupTemplate:
+    description: """
+      Template of the URI that represents the location of port port group
+      with the provided ID.
+      """
+    example: "http://example.org/midonet-api/ip_addr_groups/{id}"
+    readOnly: true
+    type: ["string"]
+  routeTemplate:
+    description: """
+      Template of the URI that represents the location of route with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/routes/{id}"
+    readOnly: true
+    type: ["string"]
+  ruleTemplate:
+    description: """
+      Template of the URI that represents the location of rule with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/rules/{id}"
+    readOnly: true
+    type: ["string"]
+  tenantTemplate:
+    description: """
+      Template of the URI that represents the location of tenant with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/tenants/{id}"
+    readOnly: true
+    type: ["string"]
+  tunnelZoneTemplate:
+    description: """
+      Template of the URI that represents the location of tunnel zone with
+      the provided ID.
+      """
+    example: "http://example.org/midonet-api/tunnel_zones/{id}"
+    readOnly: true
+    type: ["string"]
+  vipTemplate:
+    description: """
+      Template of the URI that represents the location of the vip with the
+      provided ID.
+      """
+    example: "http://example.org/midonet-api/vips/{id}"
+    readOnly: true
+    type: ["string"]
+links: [{
+  description: """
+    A GET against this URI refreshes the representation of this resource.
+    """
+  href: "/"
+  rel: "self"
+  title: "Info"
+  method: "GET"
+}]

@@ -1,0 +1,68 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/ad_route"
+title: "Route Advertisement"
+description: """
+  BGP is an entity that represents a single set of BGP configurations.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.AdRoute-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/ad_route#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/bgps/f5963cd4-6abb-4e52-94f6-2dd2a6615365/ad_routes/1af56dcd-46c3-49a1-9fd4-3b71691dd863"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "1af56dcd-46c3-49a1-9fd4-3b71691dd863"
+    $ref: "/schemata/commons#/definitions/id"
+  bgpId:
+    description: """
+      ID of the BGP configuration that this route advertisement is configured
+      for.
+      """
+    example: "f5963cd4-6abb-4e52-94f6-2dd2a6615365"
+    $ref: "/schemata/commons#/definitions/id"
+  bgp:
+    description: "A GET agains this URI gets the BGP resource."
+    example: "http://example.org:8080/midonet-api/bgps/f5963cd4-6abb-4e52-94f6-2dd2a6615365"
+    $ref: "/schemata/commons#/definitions/uri"
+  nwPrefix:
+    description: "The prefix address of the advertising route."
+    $ref: "/schemata/commons#/definitions/ipv4"
+  prefixLength:
+    description: "The prefix length of the advertising route."
+    $ref: "/schemata/commons#/definitions/subnetLength"
+rquired: ["nwPrefix", "prefixLength"]
+links: [{
+  title: "List"
+  description: "Get the list of route advertisement."
+  href: "/bgps/{bgpId}/ad_routes"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific route advertisement."
+  href: "/ad_routes/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new route advertisement."
+  href: "/bgps/{bgpId}/ad_routes"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Delete"
+  description: "Delete the specific route advertisement."
+  href: "/ad_routes/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

@@ -1,0 +1,58 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/tenant"
+title: "Tenant"
+description: """
+  Represents a tenant, or a group of users, in the identity services.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Tenant-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/tenant#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/tenants/7ae3e43d-1964-46ea-bf09-cd8fbdfb5cc9"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "7ae3e43d-1964-46ea-bf09-cd8fbdfb5cc9"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the tenant in the identity system."
+    example: "exmple_tenant"
+    $ref: "/schemata/commons#/definitions/name"
+  bridges:
+    description: "A GET against this URI retrieves tenant's bridges."
+    example: "http://example.org:8080/midonet-api/bridges?tenant_id=7ae3e43d-1964-46ea-bf09-cd8fbdfb5cc9"
+    $ref: "/schemata/commons#/definitions/uri"
+  chains:
+    description: "A GET against this URI retrieves tenant's chains."
+    example: "http://example.org:8080/midonet-api/chains?tenant_id=7ae3e43d-1964-46ea-bf09-cd8fbdfb5cc9"
+    $ref: "/schemata/commons#/definitions/uri"
+  port_groups:
+    description: "A GET against this URI retrieves tenant's port groups"
+    example: "http://example.org:8080/midonet-api/port_groups?tenant_id=7ae3e43d-1964-46ea-bf09-cd8fbdfb5cc9"
+    $ref: "/schemata/commons#/definitions/uri"
+  reouters:
+    description: "A GET against this URI retrieves tenant's routers."
+    example: "http://example.org:8080/midonet-api/routers?tenant_id=7ae3e43d-1964-46ea-bf09-cd8fbdfb5cc9"
+    $ref: "/schemata/commons#/definitions/uri"
+links: [{
+  title: "List"
+  description: "Get the list of tenants."
+  href: "/tenants"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific tenant."
+  href: "/tenants/{id}"
+  method: "GET"
+  rel: "self"
+}]

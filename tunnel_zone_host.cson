@@ -1,0 +1,106 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/tunnel_zone_host"
+title: "Tunnel Zone Host"
+description: """
+  Hosts in the same tunnel zone share the same tunnel configurations, and they
+  are allowed to create tunnels among themselves.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.TunnelZoneHost-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/tunnel_zone_host#/properties/uri"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/tunnel_zones/fe715922-4f87-437d-8638-d45910d2b1ac/hosts/07743a54-fd7d-430e-b7b1-320843b005e3"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "07743a54-fd7d-430e-b7b1-320843b005e3"
+    $ref: "/schemata/commons#/definitions/id"
+  tunnelZoneId:
+    description: "ID of the tunnel zone that the host is a member of."
+    example: "fe715922-4f87-437d-8638-d45910d2b1ac"
+    $ref: "/schemata/commons#/definitions/id"
+  tunnelZone:
+    description: "A GET against this URI retrieves the tunnel zone"
+    example: "http://example.org:8080/midonet-api/tunnel_zones/fe715922-4f87-437d-8638-d45910d2b1ac"
+    $ref: "/schemata/commons#/definitions/uri"
+  hostId:
+    description: "ID of the host that you want to add to a tunnel zone."
+    example: "07743a54-fd7d-430e-b7b1-320843b005e3"
+    $ref: "/schemata/commons#/definitions/id"
+  host:
+    description: "A GET against this URI retrieves the host."
+    example: "http://example.org:8080/midonet-api/hosts/07743a54-fd7d-430e-b7b1-320843b005e3"
+    $ref: "/schemata/commons#/definitions/uri"
+  ipAddress:
+    description: "IP address to use for the GRE tunnels from this host."
+    $ref: "/schemata/commons#/definitions/ipv4"
+links: [{
+  title: "List CapwapTunnelZoneHost"
+  description: "Get the list of tunnel zones hosts."
+  href: "/tunnel_zones/{tunnelZoneId}/hosts"
+  method: "GET"
+  rel: "instances"
+  mediaType: "application/vnd.org.midonet.collection.CapwapTunnelZoneHost-v1+json"
+}, {
+  title: "List GreTunnelZoneHost"
+  description: "Get the list of tunnel zones hosts."
+  href: "/tunnel_zones/{tunnelZoneId}/hosts"
+  method: "GET"
+  rel: "altenate"
+  mediaType: "application/vnd.org.midonet.collection.GreTunnelZoneHost-v1+json"
+}, {
+  title: "List IpsecTunnelZoneHost"
+  description: "Get the list of tunnel zones hosts."
+  href: "/tunnel_zones/{tunnelZoneId}/hosts"
+  method: "GET"
+  rel: "altenate"
+  mediaType: "application/vnd.org.midonet.collection.IpsecTunnelZoneHost-v1+json"
+}, {
+  title: "Info CapwapTunnelZoneHost"
+  description: "Get the specific tunnel zone host."
+  href: "/tunnel_zones/{tunnelZondId}/hosts/{id}"
+  method: "GET"
+  rel: "self"
+  mediaType: "application/vnd.org.midonet.CapwapTunnelZoneHost-v1+json"
+}, {
+  title: "Info GreTunnelZoneHost"
+  description: "Get the specific tunnel zone host."
+  href: "/tunnel_zones/{tunnelZondId}/hosts/{id}"
+  method: "GET"
+  rel: "alternate"
+  mediaType: "application/vnd.org.midonet.GreTunnelZoneHost-v1+json"
+}, {
+  title: "Info IpsecTunnelZoneHost"
+  description: "Get the specific tunnel zone host."
+  href: "/tunnel_zones/{tunnelZondId}/hosts/{id}"
+  method: "GET"
+  rel: "alternate"
+  mediaType: "application/vnd.org.midonet.IpsecTunnelZoneHost-v1+json"
+}, {
+  title: "Create"
+  description: "Create a new tunnel zone host."
+  href: "/tunnel_zones/{tunnelZondId}/hosts"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific tunnel zone host."
+  href: "/tunnel_zones/{tunnelZoneId}/hosts/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific tunnel zone."
+  href: "/tunnel_zones/{tunnelZoneId}/hosts/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

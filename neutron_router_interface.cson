@@ -1,0 +1,48 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/neutron_router_interface"
+title: "Neutron Router Interface"
+description: ""
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.neutron.RouterInterface-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/neutron_router_interface#/properties/id"
+properties:
+  id:
+    description: """
+      ID of the router to which an interface is added to or removed from.
+      """
+    example: "1405d6c6-a199-44d6-b9af-756dc6f5e3f7"
+    $ref: "/schemata/commons#/definitions/id"
+  tenant_id:
+    description: "ID of the tenant that owns the resource."
+    example: "efd28582-bb5d-487c-9286-9a19af4ab0a4"
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  port_id:
+    description: "ID of the interface port."
+    example: "5da4a6a4-6d5d-43e4-8f8c-d2a902284d84"
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  subnet_id:
+    description: "ID of the subnet to which the interface port is allocated in."
+    example: "5da4a6a4-6d5d-43e4-8f8c-d2a902284d84"
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+require: ["tenant_id", "port_id", "subnet_id"]
+links: [{
+  title: "Add router interface"
+  description: "Update the sepcific neutron router."
+  href: "/neutron/routers/{id}/add_router_interface"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Remove router interface"
+  description: "Update the sepcific neutron router."
+  href: "/neutron/routers/{id}/remove_router_interface"
+  method: "PUT"
+  rel: "update"
+}]

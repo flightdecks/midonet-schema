@@ -1,0 +1,120 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/bridge"
+title: "Bridge"
+description: """
+  Bridge is an entity that represents a virtual bridge device in MidoNet.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Bridge-v2+json"
+definitions:
+  identity:
+    $ref: "/schemata/bridge#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/bridges/9a59b96e-dcee-4695-b7f4-fb5e3d349f87"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+      """
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the bridge. Must be unique within each tenant."
+    example: "bridge1"
+    type: ["string"]
+  tenantId:
+    description: "ID of the tenant that owns the bridge."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  adminStateUp:
+    description: """
+      The administrative state of the bridge. If false (down), the bridge stops
+      forwarding packets. Default is true (up).
+      """
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/adminStateUp"
+  ports:
+    descritpion: "A GET against this URI retrieves ports on this bridge."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/uri"
+  dhcpSubnets:
+    descritpion: "A GET against this URI retrieves dhcpSubnets on this bridge."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/uri"
+  router:
+    description: "A GET against this URI retrieves routers on this bridge."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/uri"
+  macTable:
+    description: "A GET against this URI retrieves the bridge's MAC table."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/uri"
+  peerPorts:
+    description: """
+      A GET against this URI retrieves the interior ports attached to this
+      bridge.
+      """
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/uri"
+  inboundFilterId:
+    description: "ID of the filter chain to be applied for incoming packes."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  inboundFilter:
+    description: "A GET against this URI retrieves the inbound filter chain."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/uri"
+  outboundFilterId:
+    description: "ID of the filter chain to be applied for outgoing packets."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  outboundFilter:
+    description: "A GET against this URI retreives the outbound filter chain."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/uri"
+  vxlanPort:
+    description: "A GET against this URI retrieves the VXLAN port."
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["name"]
+links: [{
+  title: "List"
+  description: "Get the list of bridges."
+  href: "/bridges"
+  method: "GET"
+  rel: "instances"
+  properties:
+    tenant_id:
+      descritpion: "ID of the tenant to filter the search with."
+}, {
+  title: "Info"
+  description: "Get the specific bridge."
+  href: "/bridges/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new bridge."
+  href: "/bridges"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific bridge."
+  href: "/bridges/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific bridge."
+  href: "/bridges/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

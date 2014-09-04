@@ -1,0 +1,144 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/neutron"
+title: "Neutron"
+description: """
+  This is the root object of the Neutron resource in MidoNet REST API. From this
+  object, clients can discover the URIs for all the Neutron services provided
+  by MidoNet REST API.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.neutron.Neutron-v1+json"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/neutron"
+    $ref: "/schemata/commons#/definitions/uri"
+  networks:
+    description: """
+      A GET against this URI gets a list of Neutron networks. A POST against
+      this URI creates a new Neutron network.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/networks"
+    $ref: "/schemata/commons#/definitions/uri"
+  subnets:
+    description: """
+      A GET against this URI gets a list of Neutron subnets. A POST against
+      this URI creates a new Neutron subnet.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/subnets"
+    $ref: "/schemata/commons#/definitions/uri"
+  ports:
+    description: """
+      A GET against this URI gets a list of Neutron ports. A POST against this
+      URI creates a new Neutron port.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/ports"
+    $ref: "/schemata/commons#/definitions/uri"
+  routers:
+    description: """
+      A GET against this URI gets a list of Neutron routers. A POST against
+      this URI creates a new Neutron router.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/routers"
+    $ref: "/schemata/commons#/definitions/uri"
+  floating_ips:
+    description: """
+      A GET against this URI gets a list of Neutron floating IP addresses.
+      A POST against this URI creates a new Neutron floating IP address.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/floating_ips"
+    $ref: "/schemata/commons#/definitions/uri"
+  security_groups:
+    description: """
+      A GET against this URI gets a list of Neutron security groups. A POST
+      against this URI creates a new Neutron security group.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/security_groups"
+    $ref: "/schemata/commons#/definitions/uri"
+  security_groups_rules:
+    description: """
+      A GET against this URI gets a list of Neutron security group rules. A
+      POST against this URI creates a new Neutron security group rule.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/security_group_rules"
+    $ref: "/schemata/commons#/definitions/uri"
+  network_template:
+    description: """
+      URI Template that represents the location of a Neutron network.
+      """
+    readOnly: true
+    example: "http://example.org:8080/midonet-api/neutron/networks/{id}"
+    type: ["string"]
+  subnet_template:
+    description: """
+      URI Template that represents the location of a Neutron subnet.
+      """
+    readOnly: true
+    example: "http://example.org:8080/midonet-api/neutron/subnets/{id}"
+    type: ["string"]
+  port_template:
+    description: """
+      URI Template that represents the location of a Neutron port.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/ports/{id}"
+    readOnly: true
+    type: ["string"]
+  router_template:
+    description: """
+      URI Template that represents the location of a Neutron router.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/routers/{id}"
+    readOnly: true
+    type: ["string"]
+  add_router_interface_template:
+    description: """
+      A PUT against the URI constructed from this template adds a Neutron
+      router interface.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/router/{id}"
+    readOnly: true
+    type: ["string"]
+  remove_router_interface_template:
+    description: """
+      A PUT against the URI constructed from this template removes a Neutron
+      router interface.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/router/{id}"
+    readOnly: true
+    type: ["string"]
+  floating_ip_template:
+    description: """
+      URI Template that represents the location of a Neutron floating IP.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/floating_ips/{id}"
+    readOnly: true
+    type: ["string"]
+  security_group_template:
+    description: """
+      URI Template that represents the location of a Neutron security group.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/security_groups/{id}"
+    readOnly: true
+    type: ["string"]
+  security_group_rule_template:
+    description: """
+      URI Template that represents the location of a Neutron security group rule.
+      """
+    example: "http://example.org:8080/midonet-api/neutron/security_group_rules/{id}"
+    readOnly: true
+    type: ["string"]
+links: [{
+  title: "Info"
+  description: "Get the list of bridges."
+  href: "/neutron"
+  method: "GET"
+  rel: "instances"
+  properties:
+    tenant_id:
+      descritpion: "ID of the tenant to filter the search with."
+}]

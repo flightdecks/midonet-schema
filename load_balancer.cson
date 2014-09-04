@@ -1,0 +1,88 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/load_balancer"
+title: "Load Balancer"
+description: """
+  LoadBalancer is an entity that represents a virtual load balancer device in
+  MidoNet.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.LoadBalancer-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/load_balancer#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/load_balancers/b6fac5fc-2d3f-4a81-9eba-feab374cb310"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+      """
+    example: "b6fac5fc-2d3f-4a81-9eba-feab374cb310"
+    $ref: "/schemata/commons#/definitions/id"
+  routerId:
+    description: """
+      A unique identifier of the associated router. This property is readonly
+      and not allowed to be updated by users. Please assign load balancers to
+      routers through routers.
+      """
+    example: "9a59b96e-dcee-4695-b7f4-fb5e3d349f87"
+    $ref: "/schemata/commons#/definitions/id"
+  router:
+    description: "A URI of the associated router."
+    example: "http://example.org:8080/midonet-api/routers/9a59b96e-dcee-4695-b7f4-fb5e3d349f87"
+    $ref: "/schemata/commons#/definitions/uri"
+  adminStateUp:
+    $ref: "/schemata/commons#/definitions/adminStateUp"
+  vips:
+    description: """
+      A GET against this URI gets the list of VIPs associated with the load
+      balancer.
+      """
+    example: "http://example.org:8080/midonet-api/load_balancers/b6fac5fc-2d3f-4a81-9eba-feab374cb310/vips"
+    $ref: "/schemata/commons#/definitions/uri"
+  pools:
+    description: """
+      A GET against this URI gets the list pools associated with the load
+      balancer.
+      """
+    example: "http://example.org:8080/midonet-api/load_balancers/b6fac5fc-2d3f-4a81-9eba-feab374cb310/pools"
+    $ref: "/schemata/commons#/definitions/uri"
+links: [{
+  title: "List"
+  description: "Get the list of load blancers."
+  href: "/load_balancers"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific load balancer."
+  href: "/load_balancers/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new load balancer."
+  href: "/load_balancers"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific load balancer."
+  href: "/load_balancers/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific load balancer."
+  href: "/load_balancers/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

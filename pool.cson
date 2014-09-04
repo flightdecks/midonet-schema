@@ -1,0 +1,104 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/pool"
+title: "Pool"
+description: """
+  A Pool is an entity that represents a group of backend load balancer addresses
+  in MidoNet.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Pool-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/pool#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/load_balancers/59e72865-57d2-4eda-99e7-98bcf878bc52/pools/31ebc9bc-83a3-4a3c-b2a8-94a3cd9059a6"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+      """
+    example: "31ebc9bc-83a3-4a3c-b2a8-94a3cd9059a6"
+    $ref: "/schemata/commons#/definitions/id"
+  loadBalancerId:
+    description: "Load balancer object to which it is associated with."
+    example: "59e72865-57d2-4eda-99e7-98bcf878bc52"
+    $ref: "/schemata/commons#/definitions/id"
+  loadBalancer:
+    description: "A GET against this URI gets the load balancer object."
+    example: "http://example.org:8080/midonet-api/load_balancers/59e72865-57d2-4eda-99e7-98bcf878bc52"
+    $ref: "/schemata/commons#/definitions/uri"
+  protocol:
+    description: """
+      The read-only value represents the protocol used in the load balancing.
+      Only \"TCP\" is supported.
+      """
+    example: "TCP"
+    type: ["string"]
+    enum: ["TCP"]
+  lbMethod:
+    description: "Load balancing algorithm. Only \"ROUND_ROBIN\" is supported."
+    example: "ROUND_ROBIN"
+    type: ["string"]
+    enum: ["ROUND_ROBIN"]
+  healthMonitorId:
+    description: "ID of the health monitor object to assign to the pool."
+    example: "068a9c0f-5eda-467f-a00e-49177c186bbd"
+    $ref: "/schemata/commons#/definitions/id"
+  healthMonitor:
+    description: "A GET against this URI gets the health monitor object."
+    example: "http://example.org:8080/midonet-api/health_monitors/e1244270-928d-4cf2-b23b-40fd5fc25755"
+    $ref: "/schemata/commons#/definitions/uri"
+  poolMember:
+    description: """
+      A GET against this URI gets the list of URLs for the member objects.
+      """
+    example: "http://example.org:8080/midonet-api/load_balancers/59e72865-57d2-4eda-99e7-98bcf878bc52/pools/31ebc9bc-83a3-4a3c-b2a8-94a3cd9059a6/pool_members"
+    $ref: "/schemata/commons#/definitions/uri"
+  adminStateUp:
+    $ref: "/schemata/commons#/definitions/adminStateUp"
+  vips:
+    description: """
+      A GET against this URI gets the list of VIPs associated with the pool.
+      """
+    example: "http://example.org:8080/midonet-api/load_balancers/59e72865-57d2-4eda-99e7-98bcf878bc52/pools/31ebc9bc-83a3-4a3c-b2a8-94a3cd9059a6/vips"
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["loadBalancerId", "lbMethod"]
+links: [{
+  title: "List"
+  description: "Get the list of pools on a load balancer."
+  href: "/load_balancers/{loadBalancerId}/pools"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific pool on a load blancer."
+  href: "/load_balancers/{loadBalancerId}/pools/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new pool on a load balancer."
+  href: "/load_balancers/{loadBalancerId}/pools"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific pool on a load balancer."
+  href: "/load_balancers/{loadBalancerId}/pools/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific pool on a load balancer."
+  href: "/load_balancers/{loadBalancerId}/pools/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

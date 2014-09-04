@@ -1,0 +1,70 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/chain"
+title: "Chain"
+description: """
+  Chain is an entity that represents a rule chain on a virtual router in
+  MidoNet.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Chain-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/chain#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/chains/cc15564b-2f0b-4579-8b4b-06c0687a7240"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "cc15564b-2f0b-4579-8b4b-06c0687a7240"
+    $ref: "/schemata/commons#/definitions/id"
+  tenantId:
+    description: "ID of the tenant that this chain belongs to."
+    example: "7ae3e43d-1964-46ea-bf09-cd8fbdfb5cc9"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the chain. Unique per tenant."
+    example: "example_chain"
+    $ref: "/schemata/commons#/definitions/name"
+  rules:
+    description: """
+      A GET against this URI retrieves the representation of the rules set for
+      this chain.
+      """
+    example: "http://example.org:8080/midonet-api/chains/cc15564b-2f0b-4579-8b4b-06c0687a7240/rules"
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["name"]
+links: [{
+  title: "List"
+  description: "Get the list of chains."
+  href: "/chains"
+  method: "GET"
+  rel: "instances"
+  properties:
+    tenant_id:
+      descritpion: "ID of the tenant to filter the search with."
+}, {
+  title: "Info"
+  description: "Get the specific chain."
+  href: "/chains/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new router."
+  href: "/chains"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Delete"
+  description: "Delete the specific chain."
+  href: "/chains/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

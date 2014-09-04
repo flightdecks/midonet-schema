@@ -1,0 +1,67 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/ip_addr_group"
+title: "IP Address Group"
+description: """
+  IP address group is a group of IP addresss. Currently only IPv4 is
+  supported. An IP address group can be specified in the chain rule to filter
+  the traffic coming from all the addresses belonging to that the specified group.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.IpAddrGroup-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/ip_addr_group#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/ip_addr_groups/a7d05156-5212-409c-9276-b0a1b4ac5eae"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "a7d05156-5212-409c-9276-b0a1b4ac5eae"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the group."
+    example: "example_ip_address_group"
+    type: ["string"]
+  addrs:
+    description: "URI for address membership operations."
+    exmple: "http://example.org:8080/midonet-api/ip_addr_groups/a7d05156-5212-409c-9276-b0a1b4ac5eae/versions/4/ip_addrs"
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["name"]
+links: [{
+  title: "List"
+  description: "Get the list of IP address groups."
+  href: "/ip_addr_groups"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific IP address group."
+  href: "/ip_addr_groups/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new IP address group."
+  href: "/ip_addr_groups"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific IP address group."
+  href: "/ip_addr_groups/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific IP address group."
+  href: "/ip_addr_groups/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

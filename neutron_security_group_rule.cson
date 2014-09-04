@@ -1,0 +1,118 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/neutron_security_group_rule"
+title: "Neutron Security Group Rule"
+description: ""
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.neutron.SecurityGroupRule-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/neutron_security_group_rule#/properties/id"
+properties:
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+
+      If you want to match on a particular port number, specify that number for
+      both port_range_min and port_range_max.
+      """
+    example: "1405d6c6-a199-44d6-b9af-756dc6f5e3f7"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the resource."
+    example: "neutron_subnet"
+    type: ["string"]
+  tenant_id:
+    description: "efd28582-bb5d-487c-9286-9a19af4ab0a4"
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  security_group_id:
+    description: """
+      ID of the security group that the rule belongs to.
+      """
+    exmple: "508d3244-071c-441c-9b5d-3d8cd0c1a39b"
+    $ref: "/schemata/commons#/definitions/id"
+  remote_group_id:
+    description: """
+      ID of the security group to match against.
+      """
+    exmple: "1d90e7ca-32af-4019-bd67-f8d0378248f7"
+    $ref: "/schemata/commons#/definitions/id"
+  direction:
+    description: """
+      Direction of traffic to apply the rule. Egress is traffic leaving the VM.
+      Ingress is traffic destined to the VM.
+      """
+    exmple: "eggress"
+    type: ["string"]
+    enum: ["eggress", "ingress"]
+  protocol:
+    description: "Protocol to match against."
+    example: "tcp"
+    type: ["string"]
+    enum: ["tcp", "udp", "icmp", "icmpv6"]
+  port_range_min:
+    description: "Start protocol port number to match on."
+    example: 80
+    type: ["number"]
+  port_range_max:
+    description: """
+      End protocol port number to match on.
+      """
+    example: 8080
+    type: ["number"]
+  ethertype:
+    description: """
+      Ethertype to match on. Possible values are:
+    
+        * arp
+        * ipv4
+        * ipv6 (not yet supported)
+      """
+    example: "arp"
+    type: ["string"]
+  remote_ip_prefix:
+    description: """
+      IP address in the CIDR format (x.x.x.x/y) to match on.
+      """
+    exmple: "10.0.10.0/24"
+    type: ["string"]
+require: [
+    "tenant_id"
+    "security_group_id"
+    "direction"
+    ]
+links: [{
+  title: "List"
+  description: "Get the list of the neutron security group rules."
+  href: "/neutron/security_group_rules"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific neutron security group rule."
+  href: "/neutron/security_group_rules/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new neutron security group rule."
+  href: "/neutron/security_group_rules/"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the sepcific neutron security group rule."
+  href: "/neutron/security_group_rules/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific neutron security group rule."
+  href: "/neutron/security_group_rules/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

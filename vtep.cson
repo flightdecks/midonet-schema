@@ -1,0 +1,101 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/vtep"
+title: "VTEP"
+description: """
+  Midonet representation of a VXLAN Tunnel EndPoint, or VTEP, which allows you
+  to merge a Midonet L2 network with physical L2 network over an IP tunnel. Once
+  you create the Midonet VTEP representation of your external VTEP, you can bind
+  Neutron networks to the VTEP's ports.
+
+  All properties other than those required in POST are obtained from the
+  external VTEP configuration and not controlled by Midonet.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.VTEP-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/router#/properties/uri"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/vteps/10.0.1.1"
+    $ref: "/schemata/commons#/definitions/uri"
+  managementIp:
+    description: "The VTEP's IP address."
+    $ref: "/schemata/commons#/definitions/ipv4"
+  managementPort:
+    description: "The TCP port used for management connections to the VTEP."
+    $ref: "/schemata/commons#/definitions/portNumber"
+  tunnelZoneId:
+    description: """
+      ID of the tunnel zone used by Midonet to send and receive tunneled traffic
+      to and from the VTEP.
+      """
+    example: "fe715922-4f87-437d-8638-d45910d2b1ac"
+    $ref: "/schemata/commons#/definitions/id"
+  connectionState:
+    description: """
+      Indicates whether Midonet could successfully connect to the VTEP. Possible
+      values are CONNECTED and ERROR.
+      """
+    example: "CONNECTED"
+    type: ["string"]
+    enum: ["CONNECTED", "ERROR"]
+  name:
+    description: "VTEP's name."
+    example: "example_vtep"
+    $ref: "/schemata/commons#/definitions/name"
+  description:
+    description: "VTEP's description."
+    example: "An example description for the VTEP."
+    type: ["string"]
+  tunnelIpAddrs:
+    description: """
+      List of IP addresses available to Midonet to tunnel to the VTEP.
+      """
+    example: ["10.0.1.1", "10.0.2.1"]
+    type: ["array"]
+    items:
+      $ref: "/schemata/commons#/definitions/ipv4"
+  binding:
+    description: """
+      A GET on this URI retrieves a list of the VTEP's bindings to Neutron
+      networks.
+      """
+    example: "http://example.org:8080/midonet-api/vteps/10.0.1.1/bindings"
+    $ref: "/schemata/commons#/definitions/uri"
+  bindingTemplate:
+    description: "Template for the URI to the VTEP's individual bindings."
+    readOnly: true
+    example: "http://example.org:8080/midonet-api/vteps/10.0.1.1/bindings/{id}"
+    type: ["string"]
+  ports:
+    description: "A GET on this URI retrieves a list of the VTEP's ports."
+    readOnly: true
+    example: "http://example.org:8080/midonet-api/vteps/10.0.1.1/ports"
+    $ref: "/schemata/commons#/definitions/uri"
+required: ["managementIp", "managementPort", "tunnelzoneId"]
+links: [{
+  title: "List"
+  description: "Get the list of VTEPs."
+  href: "/vteps"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific VTEP."
+  href: "/vteps/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new VTEP."
+  href: "/vteps"
+  method: "POST"
+  rel: "create"
+}]

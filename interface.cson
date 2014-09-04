@@ -1,0 +1,85 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/interface"
+title: "Interface"
+description: """
+  The interface is an entity abstracting information about a physical interface
+  associated with a host.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Interface-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/interface#/properties/uri"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/load_balancers/b6fac5fc-2d3f-4a81-9eba-feab374cb310"
+    $ref: "/schemata/commons#/definitions/uri"
+  hostId:
+    description: "The unique identifier of the host that owns this interface."
+    example: "07743a54-fd7d-430e-b7b1-320843b005e3"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "The interface physical name."
+    example: "example_interface"
+    $ref: "/schemata/commons#/definitions/name"
+  mac:
+    description: "The interface physical address (MAX)."
+    $ref: "/schemata/commons#/definitions/mac"
+  mtu:
+    description: "The interface MTU value."
+    minimum: 0
+    example: 1500
+    type: ["number"]
+  status:
+    description: """
+      Bitmask of status flags. Currently we provide information about UP status
+      and Carrier status (0x01, 0x02 respectively)
+      """
+    example: 1
+    type: ["integer"]
+    enum: [1, 2]  # JSON doesn't support octal and hexadecimal values.
+  type:
+    description: """
+      Interface type (the best information that we have been able to infer). Can
+      be: Unknown | Physical | Virtual | Tunnel
+      """
+    example: "Physical"
+    type: ["string"]
+    enum: ["Unknown", "Physical", "Virtual", "Tunnel"]
+  addresses:
+    description: "The list of inet addresses bound to this interface."
+    example: ["10.0.0.1", "10.0.0.2"]
+    type: ["array"]
+    items:
+      $ref: "/schemata/commons#/definitions/ipv4"
+links: [{
+  title: "List"
+  description: "Get the list of interfaces."
+  href: "/hosts/{hostId}/interfaces"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific interface."
+  href: "/hosts/{hostId}/interfaces/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new interface."
+  href: "/hosts/{hostId}/interfaces"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific interface."
+  href: "/hosts/{hostId}/interfaces/{id}"
+  method: "PUT"
+  rel: "update"
+}]

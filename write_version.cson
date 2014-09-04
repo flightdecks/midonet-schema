@@ -1,0 +1,43 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schema/write_version"
+title: "Write Version"
+description: '''
+  Write Version specifies the version information that is relevant to the
+  midonet deployment as a whole. For example, the "version" field specifies the
+  version of the topology information that all midolman agents must write to,
+  regardless of that midolman agent\'s version.
+  '''
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.WriteVersion-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/write_version#/properties/version"
+properties:
+  version:
+    description: """
+      The version field determines the version of the topology data that the
+      midolman agents will be writing. This matters during upgrade operations
+      where we will change the write version only after all midolman agents are
+      upgraded. The format of the version field is '[major].[minor]', where
+      'major' is the Major version, and 'minor' is the minor version. For
+      example '1.2'.
+      """
+    example: "1.2"
+    $ref: "/schemata/commons#/definitions/version"
+required: ["version"]
+links: [{
+  title: "Info"
+  description: "Get the write version."
+  href: "/write_version"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Update"
+  description: "Update the write version."
+  href: "/write_version"
+  method: "PUT"
+  rel: "update"
+}]

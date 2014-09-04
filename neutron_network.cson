@@ -1,0 +1,96 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schema/neutron_network"
+title: "Neutron Network"
+description: """
+  If a network is created and marked as external, MidoNet API also creates an
+  administratively owned router called Provider Router. Provider router is a
+  MidoNet virtual router that serves as the gateway router for the OpenStack
+  Neutron deployment. This router is responsible for forwarding traffic between
+  the Internet and the OpenStack cloud. It is up to the network operator to
+  configure this router. There can be at most one instance of provider router
+  at any time. To locate this router, search for the router with the name
+  'MidoNet Provider Router'.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.neutron.Network-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/neutron_network#/properties/id"
+properties:
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+      """
+    example: "9a59b96e-dcee-4695-b7f4-fb5e3d349f87"
+    $ref: "/schemata/commons#/definitions/id"
+  name:
+    description: "Name of the resource."
+    example: "neutron_network"
+    type: ["string"]
+  tenant_id:
+    description: "ID of the tenant that owns the resource."
+    example: "efd28582-bb5d-487c-9286-9a19af4ab0a4"
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  admin_state_up:
+    description: """
+      The administrative state of the resource. Default is true (up).
+      """
+    example: true
+    type: ["boolean"]
+  external:
+    description: """
+      Indicates whether this network is external - administraively owned.
+      Default is false.
+      """
+    exmple: true
+    type: ["boolean"]
+  shared:
+    description: "Indicates whether this resource is shared among tenants."
+    exmple: true
+    type: ["boolean"]
+  status:
+    readOnly: true
+    example: ""
+    type: ["string"]
+require: ["tenant_id"]
+links: [{
+  title: "List"
+  description: "Get the list of the neutron network."
+  href: "/neutron/networks"
+  method: "GET"
+  rel: "instances"
+  mediaType: "application/vnd.org.midonet.neutron.Networks-v1+json"
+}, {
+  title: "Info"
+  description: "Get the specific neutron network."
+  href: "/neutron/networks/{id}"
+  method: "GET"
+  rel: "self"
+  mediaType: "application/vnd.org.midonet.neutron.Network-v1+json"
+}, {
+  title: "Create"
+  description: "Create a new neutron network."
+  href: "/neutron/networks"
+  method: "POST"
+  rel: "create"
+  mediaType: "application/vnd.org.midonet.neutron.Network-v1+json"
+}, {
+  title: "Update"
+  description: "Update the sepcific neutron network."
+  href: "/neutron/networks/{id}"
+  method: "PUT"
+  rel: "update"
+  mediaType: "application/vnd.org.midonet.neutron.Network-v1+json"
+}, {
+  title: "Delete"
+  description: "Delete the specific neutron network."
+  href: "/neutron/networks/{id}"
+  method: "DELETE"
+  rel: "delete"
+  mediaType: "application/vnd.org.midonet.neutron.Network-v1+json"
+}]

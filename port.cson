@@ -1,0 +1,248 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/port"
+title: "Port"
+description: """
+  Port is an entity that represents a port on a virtual device (bridge or
+  router) in MidoNet.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Port-v2+json"
+definitions:
+  identity:
+    $ref: "/schemata/port#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/ports/afefefbc-66d1-46a0-8d49-a56c3554e9f8"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "afefefbc-66d1-46a0-8d49-a56c3554e9f8"
+    $ref: "/schemata/commons#/definitions/id"
+  adminStateUp:
+    description: """
+      The administrative state of the port. If false (down), the port stops
+      forwarding packets. If it is a router port, it adittionally replies with a
+       'Communication administratively prohibited' ICMP Default is true (up).
+      """
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/adminStateUp"
+  deviceId:
+    description: """
+      ID of the device (bridge or router) that this port belongs to.
+      """
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  type:
+    description: """
+      Type of device port. It must be one of:
+
+        * Router
+        * Bridge
+
+      A new router or bridge port is unplugged. Depending on what it is later
+      attached to, it is referred to as an exterior or interior port.
+
+      An exterior router port is a virtual port that plugs into the VIF of an
+      entity, such as a VM. It can also be a virtual port connected to a host
+      physical port, directly or after implementing tunnel encapsulation. Access
+      to exterior ports is managed by OpenVSwitch (OpenFlow switch). Exterior
+      bridge port is the same as exterior router port but it is a port on a
+      virtual bridge. Upon being bound to an interface, the port becomes
+      exterior and will have the hostId, host, and interfaceName fields be
+      non-null. The peer and peerId fields will be null.
+
+      An interior router port is a virtual port that only exists in the MidoNet
+      virtual router network abstraction. It refers to a logical connection to
+      another virtual networking device such as another router. An interior
+      bridge port is the equivalent on a virtual bridge. Upon being linked to a
+      peer, a port will become interior and will have the peer and peerId
+      fields be non-null. The hostId, host, and interfaceName fields will be
+      null.
+
+      There is a third type of port, Vxlan, which is created automatically when
+      binding a VTEP to a Neutron network. The only operations supported on a
+      port of this type are GET and DELETE. Deleting a VXLAN port will delete
+      all associated VTEP bindings.
+      """
+    example: "Router"
+    type: ["object"]
+  peerId:
+    description: """
+      ID of the peer port that this port is linked to. This will be set when
+      linking a port to another peer (becoming an interior port).
+      """
+    $ref: "/schemata/commons#/definitions/id"
+  peer:
+    description: """
+      A GET against this URI retrieves the peer port resource. Requires a port
+      to be linked to another port.
+      """
+    example: "/routers/1ae9694d-f5a7-4b5d-832d-d642fb386460"
+    $ref: "/schemata/commons#/definitions/uri"
+  networkAddress:
+    description: """
+      IP address of the network attached to this port. For example,
+      192.168.10.32.
+      """
+    example: "192.168.10.0"
+    $ref: "/schemata/commons#/definitions/ipv4"
+  networkLength:
+    description: """
+      Prefix length of the network attached to this port (number of fixed
+      network bits).
+      """
+    $ref: "/schemata/commons#/definitions/subnetLength"
+  portAddress:
+    description: """
+      IP address assigned to the port.
+      """
+    example: "192.168.10.32"
+    $ref: "/schemata/commons#/definitions/ipv4"
+  portMac:
+    description: """
+      Port MAC address.
+      """
+    $ref: "/schemata/commons#/definitions/mac"
+  vifId:
+    description: """
+      ID of the VIF plugged into the port.
+      """
+    $ref: "/schemata/commons#/definitions/id"
+  hostId:
+    description: """
+      ID of the port's host. This will be set when binding a port to a host
+      (becoming an exterior port).
+      """
+    $ref: "/schemata/commons#/definitions/id"
+  host:
+    description: """
+      The port host's URI. Requires a port to be bound to a host
+      """
+    $ref: "/schemata/commons#/definitions/id"
+  interfaceName:
+    description: """
+      Interface name of a bound port. This will be set when binding a port to a
+      host (becoming an exterior port).
+      """
+    example: "mido0"
+    type: ["string"]
+  bgps:
+    description: """
+      A GET against this URI retrieves BGP configurations for this port.
+      """
+    example: "http://example.org:8080/midonet-api/bgps/9bec857a-561f-43bb-bee4-a084c9cc0f50"
+    $ref: "/schemata/commons#/definitions/uri"
+  link:
+    description: """
+      Location of the port link resource. A POST against this URI links two
+      interior ports. In the body of the request, 'peerId' must be specified to
+      indicate the peer interior port ID. A DELETE against this URI removes the
+      link.
+      """
+    example: "http://example.org:8080/midonet-api/routers/9a59b96e-dcee-4695-b7f4-fb5e3d349f87/port/afefefbc-66d1-46a0-8d49-a56c3554e9f8/link"
+    $ref: "/schemata/commons#/definitions/uri"
+  inboundFilterId:
+    description: "ID of the filter chain to be applied for incoming packets."
+    example: "f56060f7-a2b9-4da5-ae91-a07a6311d660"
+    $ref: "/schemata/commons#/definitions/id"
+  inboundFilter:
+    description: "A GET against this URI retrieves the inbound filter chain."
+    example: "http://example.org:8080/midonet-api/chains/f56060f7-a2b9-4da5-ae91-a07a6311d660"
+    $ref: "/schemata/commons#/definitions/uri"
+  outboundFilterId:
+    description: "ID of the filter chain to be applied for outgoing packets."
+    example: "54033d05-13e5-47a4-9da8-69c49138dd4b"
+    $ref: "/schemata/commons#/definitions/id"
+  outboundFilter:
+    description: "A GET against this URI retrieves the outbound filter chain."
+    example: "http://example.org:8080/midonet-api/chains/54033d05-13e5-47a4-9da8-69c49138dd4b"
+    $ref: "/schemata/commons#/definitions/uri"
+  portGroups:
+    description: """
+      A GET against this URI retrieves the port groups that this port is a
+      member of.
+      """
+    example: "http://example.org:8080/midonet-api/port_groups/fcd6fee4-a31d-4432-bf7e-0acd6ff021c9"
+    $ref: "/schemata/commons#/definitions/uri"
+  hostInterfacePort:
+    description: """
+      A GET against this URI retrieves the interface-binding information of this
+      port.
+      """
+    example: "http://example.org:8080/midonet-api/routers/9a59b96e-dcee-4695-b7f4-fb5e3d349f87/port/afefefbc-66d1-46a0-8d49-a56c3554e9f8/hostInterfacePort"
+    $ref: "/schemata/commons#/definitions/uri"
+  vlanId:
+    description: """
+      The VLAN ID assigned to this port. On a given bridge, each VLAN ID can be
+      present at most in one interior port.
+      """
+    example: 1234
+    type: ["number"]
+required: ["type", "netWorkAddress", "networkLength", "portAddress"]
+links: [{
+  title: "List"
+  description: "Get the list of ports."
+  href: "/ports"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific port."
+  href: "/ports/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "List (Router)"
+  description: "Get the list of ports on a router."
+  href: "/routers/{routerId}/ports"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "List Peers (Router)"
+  description: "Get the list of peer ports on a router."
+  href: "/routers/{routerId}/peer_ports"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "List (Bridge)"
+  description: "Get the list of ports on a bridge."
+  href: "/bridges/{bridgeId}/ports"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "List Peers (Bridge)"
+  description: "Get the list of peer ports on a bridge."
+  href: "/bridges/{bridgeId}/peer_ports"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Create (Router)"
+  description: "Create a new port on a router."
+  href: "/routers/{routerId}/ports"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Create (Bridge)"
+  description: "Create a new port on a bridge."
+  href: "/bridges/{bridgeId}/ports"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the specific port."
+  href: "/ports/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific port."
+  href: "/ports/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

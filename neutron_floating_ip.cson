@@ -1,0 +1,94 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/neutron_floating_ip"
+title: "Neutron Floating IP"
+description: ""
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.neutron.Port-v1+json"
+definitions:
+  identity:
+    $ref: "/schemata/neutron_floating_ip#/properties/id"
+properties:
+  id:
+    description: """
+      A unique identifier of the resource. If this field is omitted in the POST
+      request, a random UUID is generated.
+      """
+    example: "1405d6c6-a199-44d6-b9af-756dc6f5e3f7"
+    $ref: "/schemata/commons#/definitions/id"
+  tenant_id:
+    description: "efd28582-bb5d-487c-9286-9a19af4ab0a4"
+    readOnly: true
+    $ref: "/schemata/commons#/definitions/id"
+  floating_network_id:
+    description: """
+      IP address in the format x.x.x.x/y, such as 200.0.0.0/24.
+      """
+    example: "200.0.0.0/24"
+    $ref: "/schemata/commons#/definitions/cidr"
+  floating_network_id:
+    description: """
+      ID of the externa network from which the floating IP address was allocated
+      from.
+      """
+    example: "7c230d30-e6cb-45d0-80bb-cb494073af50"
+    $ref: "/schemata/commons#/definitions/id"
+  router_id:
+    description: """
+      ID of the router where the floating IP is NATed.
+      """
+    example: "4d8c339e-5fd6-4073-8ede-3ff6034695d8"
+    $ref: "/schemata/commons#/definitions/id"
+  port_id:
+    description: """
+      ID of the port to which the floating IP is associated with.
+      """
+    example: "83903ac1-b663-444b-908c-fa1e64c8cbec"
+    $ref: "/schemata/commons#/definitions/id"
+  port_id:
+    description: """
+      Private IP address that the floating IP is associated with
+      in the format x.x.x.x/y, such as 10.0.0.3/24
+      """
+    example: "fe6dddfe-eb36-4dd1-8292-a53e08d04a6f"
+    $ref: "/schemata/commons#/definitions/id"
+require: [
+    "tenant_id"
+    "floating_ip_address"
+    "floating_network_id"
+    "router_id"
+    "fixed_ip_address"
+    ]
+links: [{
+  title: "List"
+  description: "Get the list of the neutron floating IPs."
+  href: "/neutron/floating_ips"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific neutron floating IP."
+  href: "/neutron/floating_ips/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new neutron floating IP."
+  href: "/neutron/floating_ips/"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Update"
+  description: "Update the sepcific neutron floating IP."
+  href: "/neutron/floating_ips/{id}"
+  method: "PUT"
+  rel: "update"
+}, {
+  title: "Delete"
+  description: "Delete the specific neutron floating IP."
+  href: "/neutron/floating_ips/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]

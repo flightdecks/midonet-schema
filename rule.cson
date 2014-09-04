@@ -1,0 +1,315 @@
+# Copyright (c) 2014 Midokura SARL, All Rights Reserved.
+
+$schema: "http://json-schema.org/draft-04/hyper-schema"
+id: "schemata/rule"
+title: "Rule"
+description: """
+  Rule is an entity that represents a rule on a virtual router chain in MidoNet.
+
+  ### How L2 Address masking works
+
+  dlDstMask and dlSrcMask help reduce the number of L2 address match rules.
+
+  For example, if you specify dlDstMask to be 'ffff.0000.0000', and if dlDst is
+  'abcd.0000.0000', all traffic with the destination MAC address that starts
+  with 'abcd' will be matched.
+  """
+type: ["object"]
+media:
+  mediaType: "application/vnd.org.midonet.Rule-v2+json"
+definitions:
+  identity:
+    $ref: "/schemata/rule#/properties/id"
+properties:
+  uri:
+    description: """
+      A GET against this URI refreshes the representation of this resource.
+      """
+    example: "http://example.org:8080/midonet-api/port_groups/ddd90694-4cfd-44d3-9397-fe19fd4e5ce8"
+    $ref: "/schemata/commons#/definitions/uri"
+  id:
+    description: "A unique identifier of the resource."
+    example: "7688dba0-4a55-4c8e-a005-4f84fe9eaabe"
+    $ref: "/schemata/commons#/definitions/id"
+  chainId:
+    description: "ID of the chain that this chain belongs to."
+    example: "cc15564b-2f0b-4579-8b4b-06c0687a7240"
+    $ref: "/schemata/commons#/definitions/id"
+  condInvert:
+    description: "Invert the conjunction of all the other predicates."
+    example: false
+    type: ["boolean"]
+  dlDst:
+    description: """
+      The data link layer destination that this rule matches on. A MAC address
+      in the form aa:bb:cc:dd:ee:ff.
+      """
+    $ref: "/schemata/commons#/definitions/mac"
+  dlSrc:
+    description: """
+      The data link layer source that this rule matches on. A MAC address in the
+      form aa:bb:cc:dd:ee:ff.
+      """
+    $ref: "/schemata/commons#/definitions/mac"
+  dlType:
+    description: """
+      Set the data link layer type (ethertype) of packets matched by this rule.
+      The type provided is not check for validity.
+      """
+    $ref: "/schemata/commons#/definitions/ethertype"
+  dlSrcMask:
+    description: """
+      Source MAC address mask in the format xxxx.xxxx.xxxx where each x is a
+      hexadecimal digit.
+      """
+    $ref: "/schemata/commons#/definitions/ethermask"
+  flowAction:
+    description: """
+      Action to take on each flow. If the type is snat, dnat, rev_snat and
+      rev_dnat then this field is required. Must be one of accept, continue,
+      return.
+      """
+    example: "accept"
+    type: ["string"]
+    enum: ["accept", "continue", "return"]
+  inPorts:
+    description: """
+      The list of (interior or exterior) ingress port UUIDs to match.
+      """
+    example: ["b3a79f36-6907-40cb-bf10-226dc1f78ba6", "a01610eb-8d35-4f4b-9667-32a37b3d57b7"]
+    type: ["array"]
+    items:
+      $ref: "/schemata/commons#/definitions/id"
+  invDlDst:
+    description: """
+      Set whether the match on the data link layer destination should be
+      inverted (match packets whose data link layer destination is NOT equal to
+      dlDst). Will be stored, but ignored until dlDst is set.
+      """
+    example: false
+    type: ["boolean"]
+  invDlSrc:
+    description: """
+      Set whether the match on the data link layer source should be inverted
+      (match packets whose data layer link source is NOT equal to dlSrc). Will
+      be stored, but ignored until dlSrc is set.
+      """
+    example: false
+    type: ["boolean"]
+  invDlType:
+    description: """
+      Set whether the match on the data link layer type should be inverted
+      (match packets whose data link layer type is NOT equal to the Ethertype
+      set by dlType. Will be stored, but ignored until dlType is set.
+      """
+    example: false
+    type: ["boolean"]
+  invInPorts:
+    description: """
+      Inverts the in_ports predicate. Match if the packet's ingress is NOT in
+      in_ports.
+      """
+    example: false
+    type: ["boolean"]
+  invNwDst:
+    description: """
+      Invert the IP dest prefix predicate. Match packets whose destination is
+      NOT in the prefix.
+      """
+    example: false
+    type: ["boolean"]
+  invNwProto:
+    description: """
+      Invert the nwProto predicate. Match if the packet's protocol number is
+      not nwProto.
+      """
+    example: false
+    type: ["boolean"]
+  invNwSrc:
+    description: """
+      Invert the IP source prefix predicate. Match packets whose source is NOT
+      in the prefix.
+      """
+    example: false
+    type: ["boolean"]
+  invOutPorts:
+    description: """
+      Inverts the out_ports predicate. Match if the packet's egress is NOT in
+      out_ports.
+      """
+    example: false
+    type: ["boolean"]
+  invTpDst:
+    description: """
+      Invert the destination TCP/UDP port range predicate. Match packets whose
+      dest port is NOT in the range.
+      """
+    example: false
+    type: ["boolean"]
+  invTpSrc:
+    description: """
+      Invert the source TCP/UDP port range predicate. Match packets whose source
+      port is NOT in the range.
+      """
+    exmple: false
+    type: ["boolean"]
+  jumpChainId:
+    description: """
+      ID of the jump chain. If the type == jump then this field is required.
+      """
+    example: "cc15564b-2f0b-4579-8b4b-06c0687a7240"
+    $ref: "/schemata/commons#/definitions/id"
+  jumpChainName:
+    description: "Name of the jump chain."
+    example: "example_jump_chain"
+    $ref: "/schemata/commons#/definitions/name"
+  natTargets:
+    description: '''
+      The list of nat targets. Each nat target should be an JSON object that
+      contains the following fields:
+
+        * addressFrom: The first IP address in the range of IP addresses used as
+                       NAT targets
+        * addressTo: The last IP address in the range of IP addresses used as
+                     NAT targets
+        * portFrom: The first port number in the range of port numbers used as
+                    NAT targets
+        * portTo: The last port number in the range of port numbers used as NAT
+                  targets
+
+      For an example: {"addressFrom": "1.2.3.4", "addressTo": "5.6.7.8",
+      "portFrom": "22", "portTo": "80"}. This field is required if the type is
+      dnat or snat.
+      '''
+    example: [
+      {addressFrom: "10.0.0.1", addressTo: "10.0.0.1", portFrom: 80, portTo: 80}
+      {addressFrom: "10.0.1.1", addressTo: "10.0.1.4", portFrom: 80, portTo: 80}
+      {addressFrom: "10.0.3.1", addressTo: "10.0.3.4", portFrom: 80, portTo: 8080}
+    ]
+    type: ["array"]
+    items:
+      type: ["object"]
+  nwDstAddress:
+    description: "The address part of the IP destination prefix to match."
+    $ref: "/schemata/commons#/definitions/ipv4"
+  nwDstLength:
+    description: "The length of the IP destination prefix to match."
+    $ref: "/schemata/commons#/definitions/subnetLength"
+  nwProto:
+    description: "The value of the IP packet TOS field to match (0-255)."
+    minimum: 0
+    maximum: 255
+    example: 0
+    type: ["number"]
+  nwSrcAddress:
+    description: """
+      The length of the source IP prefix to match (number of fixed network bits).
+      """
+    $ref: "/schemata/commons#/definitions/ipv4"
+  nwSrcLength:
+    description: """
+      The length of the source IP prefix to match (number of fixed network
+      bits).
+      """
+    $ref: "/schemata/commons#/definitions/subnetLength"
+  nwTos:
+    description: "The value of the IP packet TOS field to match (0-255)."
+    minimum: 0
+    maximum: 255
+    example: 0
+    type: ["number"]
+  outPorts:
+    description: """
+      The list of (interior or exterior) egress port UUIDs to match.
+      """
+    example: ["a597b35c-1c5b-4d7a-b183-9874b60a4856", "57b79c9c-559f-4f76-b210-6559d6effa19"]
+    type: ["array"]
+    items:
+      $ref: "/schemata/commons#/definitions/id"
+  portGroup:
+    description: """
+      ID of the port group that you want to filter traffic from. If matched,
+      the filter action is applied to any packet coming from ports belonging to
+      the specified port group.
+      """
+    example: "ddd90694-4cfd-44d3-9397-fe19fd4e5ce8"
+    $ref: "/schemata/commons#/definitions/id"
+  position:
+    description: """
+      The position at which this rule should be inserted >= 1 and <= the
+      greatest position in the chain + 1. If not specified, it is assumed to be
+      1.
+      """
+    minimum: 1
+    example: 1
+    type: ["number"]
+  tpSrc:
+    description: '''
+      A JSON representation of the Range object representing the tcp/udp source
+      port range to match, like {"start":80,"end":400}. When creating an ICMP
+      rule, this field should be set to the ICMP type value. The absence of a
+      Range will be interpreted as "any".
+      '''
+    $ref: "/schemata/commons#/definitions/range"
+  tpDst:
+    description: '''
+      A JSON representation of the Range object representing the tcp/udp
+      destination port range to match, like {"start":80,"end":400}. When
+      creating an ICMP rule, this field should be set to the ICMP code value. A
+      null value in this field will be interpreted as "any".
+      '''
+    $ref: "/schemata/commons#/definitions/range"
+  fragmentPolicy:
+    description: '''
+      The policy for fragmented packet handling. The accepted values are:
+
+        * "any": matches on all packets, including fragments.
+        * "header": matches on header fragment packet
+        * "nonheader": matches on fragmented non-header packets
+        * "unfragmented": matches only on unfragmented packets
+
+      If L4 fields are specified (tpSrc or tpDst) then only "header" and
+      "unfragmented" are allowed, and "header" is the default. If L4 fields are
+      not specified, "any" is the default.
+      '''
+    example: "any"
+    default: "any"
+    type: ["string"]
+    enum: ["any", "header", "nonheader", "unfragmented"]
+  type:
+    description: '''
+      Must be one of these strings: "accept", "dnat", "drop", "jump",
+      "rev_dnat", "rev_snat", "reject", "return", "snat".
+      '''
+    example: "accept"
+    type: ["string"]
+    enum: [
+      "accept", "dnat", "drop", "jump", "rev_dnat", "rev_snat", "reject",
+      "return", "snat"
+    ]
+required: ["type"]
+links: [{
+  title: "List"
+  description: "Get the list of rules."
+  href: "/chains/{chainId}/rules"
+  method: "GET"
+  rel: "instances"
+}, {
+  title: "Info"
+  description: "Get the specific rule."
+  href: "/chains/{chainId}/rules/{id}"
+  method: "GET"
+  rel: "self"
+}, {
+  title: "Create"
+  description: "Create a new rule."
+  href: "/chains/{chainId}/rules/{id}"
+  method: "POST"
+  rel: "create"
+}, {
+  title: "Delete"
+  description: "Delete the specific rule."
+  href: "/chains/{chainId}/rules/{id}"
+  method: "DELETE"
+  rel: "delete"
+}]
