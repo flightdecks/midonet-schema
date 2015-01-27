@@ -18,11 +18,11 @@ properties:
     description: """
       A GET against this URI refreshes the representation of this resource.
       """
-    example: "http://example.org:8080/midonet-api/load_balancers/b6fac5fc-2d3f-4a81-9eba-feab374cb310"
+    example: "http://example.org:8080/midonet-api/hosts/07743a54-fd7d-430e-b7b1-320843b005e3/interfaces/af7c74ec-913c-4974-90b2-188e48ba3532"
     $ref: "/schemata/commons#/definitions/uri"
   hostId:
     description: "The unique identifier of the host that owns this interface."
-    example: "07743a54-fd7d-430e-b7b1-320843b005e3"
+    example: "af7c74ec-913c-4974-90b2-188e48ba3532"
     $ref: "/schemata/commons#/definitions/id"
   name:
     description: "The interface physical name."

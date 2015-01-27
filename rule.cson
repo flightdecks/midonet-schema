@@ -25,7 +25,7 @@ properties:
     description: """
       A GET against this URI refreshes the representation of this resource.
       """
-    example: "http://example.org:8080/midonet-api/port_groups/ddd90694-4cfd-44d3-9397-fe19fd4e5ce8"
+    example: "http://example.org:8080/midonet-api/chains/rules/7688dba0-4a55-4c8e-a005-4f84fe9eaabe"
     $ref: "/schemata/commons#/definitions/uri"
   id:
     description: "A unique identifier of the resource."

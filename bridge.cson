@@ -47,6 +47,7 @@ properties:
   dhcpSubnets:
     descritpion: "A GET against this URI retrieves dhcpSubnets on this bridge."
     readOnly: true
+    example: "http://example.org:8080/midonet-api/bridges/9a59b96e-dcee-4695-b7f4-fb5e3d349f87/arp_table"
     $ref: "/schemata/commons#/definitions/uri"
   router:
     description: "A GET against this URI retrieves routers on this bridge."
@@ -62,26 +63,32 @@ properties:
       bridge.
       """
     readOnly: true
+    example: "http://example.org:8080/midonet-api/bridges/9a59b96e-dcee-4695-b7f4-fb5e3d349f87/peers"
     $ref: "/schemata/commons#/definitions/uri"
   inboundFilterId:
     description: "ID of the filter chain to be applied for incoming packes."
     readOnly: true
+    example: "cc15564b-2f0b-4579-8b4b-06c0687a7240"
     $ref: "/schemata/commons#/definitions/id"
   inboundFilter:
     description: "A GET against this URI retrieves the inbound filter chain."
     readOnly: true
+    example: "http://example.org:8080/midonet-api/bridges/9a59b96e-dcee-4695-b7f4-fb5e3d349f87/inboundFileter"
     $ref: "/schemata/commons#/definitions/uri"
   outboundFilterId:
     description: "ID of the filter chain to be applied for outgoing packets."
     readOnly: true
+    example: "cc15564b-2f0b-4579-8b4b-06c0687a7240"
     $ref: "/schemata/commons#/definitions/id"
   outboundFilter:
     description: "A GET against this URI retreives the outbound filter chain."
     readOnly: true
+    example: "http://example.org:8080/midonet-api/bridges/9a59b96e-dcee-4695-b7f4-fb5e3d349f87/outboundFileter"
     $ref: "/schemata/commons#/definitions/uri"
   vxlanPort:
     description: "A GET against this URI retrieves the VXLAN port."
     readOnly: true
+    example: "http://example.org:8080/midonet-api/bridges/9a59b96e-dcee-4695-b7f4-fb5e3d349f87/vxlanPort"
     $ref: "/schemata/commons#/definitions/uri"
 required: ["name"]
 links: [{
