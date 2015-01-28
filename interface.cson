@@ -35,7 +35,7 @@ properties:
     description: "The interface MTU value."
     minimum: 0
     example: 1500
-    type: ["number"]
+    type: ["integer"]
   status:
     description: """
       Bitmask of status flags. Currently we provide information about UP status

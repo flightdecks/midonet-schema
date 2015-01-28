@@ -80,7 +80,7 @@ links: [{
     limit:
       descritpion: "Number of items to fetch."
       example: 10
-      type: ["number"]
+      type: ["integer"]
 }, {
   title: "Info"
   description: "Get the specific VIP on a load blancer."

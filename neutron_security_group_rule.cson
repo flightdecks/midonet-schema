@@ -57,13 +57,13 @@ properties:
   port_range_min:
     description: "Start protocol port number to match on."
     example: 80
-    type: ["number"]
+    type: ["integer"]
   port_range_max:
     description: """
       End protocol port number to match on.
       """
     example: 8080
-    type: ["number"]
+    type: ["integer"]
   ethertype:
     description: """
       Ethertype to match on. Possible values are:

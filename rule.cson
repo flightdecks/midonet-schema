@@ -200,7 +200,7 @@ properties:
     minimum: 0
     maximum: 255
     example: 0
-    type: ["number"]
+    type: ["integer"]
   nwSrcAddress:
     description: """
       The length of the source IP prefix to match (number of fixed network bits).
@@ -217,7 +217,7 @@ properties:
     minimum: 0
     maximum: 255
     example: 0
-    type: ["number"]
+    type: ["integer"]
   outPorts:
     description: """
       The list of (interior or exterior) egress port UUIDs to match.
@@ -242,7 +242,7 @@ properties:
       """
     minimum: 1
     example: 1
-    type: ["number"]
+    type: ["integer"]
   tpSrc:
     description: '''
       A JSON representation of the Range object representing the tcp/udp source

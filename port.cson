@@ -183,7 +183,7 @@ properties:
       present at most in one interior port.
       """
     example: 1234
-    type: ["number"]
+    type: ["integer"]
 required: ["type", "netWorkAddress", "networkLength", "portAddress"]
 links: [{
   title: "List"

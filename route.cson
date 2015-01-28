@@ -59,7 +59,7 @@ properties:
       The priority weight of the route. Lower weights take precedence over
       higher weights.
       """
-    type: ["number"]
+    type: ["integer"]
   nextHopPort:
     description: "The ID of the next hop port."
     $ref: "/schemata/commons#/definitions/id"
