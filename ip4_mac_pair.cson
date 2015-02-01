@@ -30,7 +30,7 @@ properties:
       the bridge, the ip will resolve to this MAC.
       """
     $ref: "/schemata/commons#/definitions/mac"
-rquired: ["ip", "mac"]
+required: ["ip", "mac"]
 links: [{
   title: "List"
   description: "Get the list of IP4MacPair."
