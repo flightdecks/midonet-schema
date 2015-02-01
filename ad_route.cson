@@ -40,7 +40,7 @@ properties:
   prefixLength:
     description: "The prefix length of the advertising route."
     $ref: "/schemata/commons#/definitions/subnetLength"
-rquired: ["nwPrefix", "prefixLength"]
+required: ["nwPrefix", "prefixLength"]
 links: [{
   title: "List"
   description: "Get the list of route advertisement."

@@ -277,7 +277,7 @@
           "$ref": "#/definitions/commons/definitions/subnetLength"
         }
       },
-      "rquired": [
+      "required": [
         "nwPrefix",
         "prefixLength"
       ],
@@ -1589,7 +1589,7 @@
           "$ref": "#/definitions/commons/definitions/mac"
         }
       },
-      "rquired": [
+      "required": [
         "ip",
         "mac"
       ],
